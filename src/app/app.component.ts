@@ -9,6 +9,7 @@ export class AppComponent implements OnInit {
 	title = 'user-manager';
 
 	constructor() {
+		
 	}
 
 	public ngOnInit(): void {
