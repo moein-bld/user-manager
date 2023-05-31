@@ -1,3 +1,6 @@
-<p>sign-in works!</p>
-
-<app-auth-form></app-auth-form>
+<div class="auth_page bg-secondary">
+    <div class="">
+        <app-auth-form type="up" (submitUser)="login($event)" (googleLogin)="loginWithLogin()"></app-auth-form>
+        
+    </div>
+</div>

@@ -8,12 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
 	title = 'user-manager';
 
-	constructor() {
-		
-	}
+	constructor() {}
 
 	public ngOnInit(): void {
-
 		window.addEventListener('beforeinstallprompt', () => {
 			console.log('show add to home screen button');
 		});

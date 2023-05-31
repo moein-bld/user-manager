@@ -1,0 +1,22 @@
+.page_404 {
+	text-align: center;
+
+	&__image {
+		background-image: url(https://cdn.dribbble.com/users/722246/screenshots/3066818/404-page.gif);
+		height: 600px;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	&__title {
+		font-size: 40px;
+	}
+
+	&__btn {
+		border: 0;
+		border-radius: 4px;
+		font-size: 20px;
+		padding: 12px;
+		background-color: #5ac652;
+	}
+}

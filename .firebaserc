@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "double-media-366020": {
+      "hosting": {
+        "user-manager": [
+          "double-media-366020"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "double-media-366020"
+  }
+}

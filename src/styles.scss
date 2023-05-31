@@ -8,3 +8,90 @@ body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+$colors: (
+	'primary': #7367f0,
+	'secondary': #6c757d,
+	'white': #fff,
+	'success': #28a745,
+	'error': #ea5455,
+);
+
+$spacing: (
+	0: 0,
+	1: 0.25rem,
+	2: 0.5rem,
+	3: 1rem,
+	4: 1.5rem,
+	5: 1.75rem,
+	6: 2rem,
+	7: 2.25rem,
+	8: 2.5rem,
+	9: 2.5rem,
+	10: 3rem,
+	11: 3.5rem,
+	12: 4rem,
+	13: 4.5rem,
+	14: 5rem,
+);
+
+@each $prop, $name in (margin: m, padding: p) {
+	@each $size, $value in $spacing {
+		.#{$name}t-#{$size} {
+			#{$prop}-top: $value;
+		}
+
+		.#{$name}b-#{$size} {
+			#{$prop}-bottom: $value;
+		}
+
+		.#{$name}l-#{$size} {
+			#{$prop}-left: $value;
+		}
+
+		.#{$name}r-#{$size} {
+			#{$prop}-right: $value;
+		}
+
+		.#{$name}x-#{$size} {
+			#{$prop}-left: $value;
+			#{$prop}-right: $value;
+		}
+
+		.#{$name}y-#{$size} {
+			#{$prop}-top: $value;
+			#{$prop}-bottom: $value;
+		}
+	}
+}
+
+:root {
+	@each $name, $value in $colors {
+		--#{$name}: #{$value};
+	}
+}
+
+@each $name, $value in $colors {
+	.bg-#{$name} {
+		background-color: $value !important;
+	}
+
+	.bg-#{$name}:disabled {
+		background-color: $value !important;
+		opacity: 0.5;
+	}
+
+	.text-#{$name} {
+		color: $value !important;
+	}
+}
+
+.w-full {
+	width: 100%;
+}
+
+.flex-center {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

@@ -1,1 +1,33 @@
-<p>auth-form works!</p>
+<mat-card class="login_card">
+	<mat-card-title class="login_card__title"> welcome {{ type === 'in' ? '' : 'back' }} ! 👋 </mat-card-title>
+	<mat-card-content>
+		<form [formGroup]="form" (ngSubmit)="submit()">
+			<mat-form-field class="w-full">
+				<mat-label>Email</mat-label>
+				<input type="text" matInput formControlName="email" name="email" />
+				<mat-error *ngIf="form.get('email')?.hasError('required')"> email is required </mat-error>
+				<mat-error *ngIf="form.get('email')?.hasError('email')"> email is invalid </mat-error>
+			</mat-form-field>
+
+			<mat-form-field class="w-full mt-4">
+				<mat-label>Password</mat-label>
+				<input type="password" matInput formControlName="password" name="password" />
+				<mat-error *ngIf="form.get('password')?.hasError('required')"> password is required </mat-error>
+				<mat-error *ngIf="form.get('password')?.hasError('minlength')"> password must be at least 6 characters long </mat-error>
+			</mat-form-field>
+
+			<div class="w-full mt-4">
+				<button mat-button class="bg-primary text-white w-full" [disabled]="!form.valid">sign {{ type === 'in' ? 'up' : 'in' }}</button>
+			</div>
+		</form>
+	</mat-card-content>
+	<mat-card-footer>
+		<div class="flex-center px-3 my-3">
+			<button [routerLink]="['/auth/sign-' + type]" mat-button class="">Sign {{ type }}</button>
+			<button class="google_btn mdc-switch__shadow" (click)="loginWithGoogle()">
+				<img src="assets/google.svg" alt="google_icon" />
+				<span> Login with Google </span>
+			</button>
+		</div>
+	</mat-card-footer>
+</mat-card>
