@@ -31,7 +31,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 		provideFirebaseApp(() => initializeApp(environment.firebase)),
 		provideAuth(() => getAuth()),
 		provideFirestore(() => getFirestore()),
-    	provideStorage(() => getStorage()),
+		provideStorage(() => getStorage()),
 		provideDatabase(() => getDatabase()),
 	],
 	providers: [],

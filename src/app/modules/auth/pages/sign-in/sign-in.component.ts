@@ -1,42 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError } from 'rxjs';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { UserLogin } from 'src/app/shared/services/user';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { UserLogin } from 'src/app/shared/services/auth/user';
 
 @Component({
 	selector: 'app-sign-in',
 	templateUrl: './sign-in.component.html',
 	styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent {
-	constructor(public authService: AuthService, private _snackBar: MatSnackBar) {}
+export class SignInComponent implements OnDestroy {
+	private signInSubscription: Subscription = new Subscription()
+
+	constructor(public authService: AuthService, private _snackBar: MatSnackBar, private router: Router) {}
 
 	login(event: UserLogin) {
 		console.log(event);
 
-		this.authService
-			.signIn(event.email, event.password)
-			.pipe(
-				catchError(error => {
-					console.log(error.code);
+		this.signInSubscription = this.authService.signIn(event.email, event.password).subscribe(
+			userCredential => {
+				// Handle sign-in success
+				console.log('Sign-in successful:', userCredential.user);
+				this.router.navigate(['/dashboard'])
+			},
+			error => {
+				console.log(error.code);
 
-					this._snackBar.open(`${error.code.split('/')[1]}`, 'OK', {
-						horizontalPosition: 'center',
-						verticalPosition: 'top',
-						duration: 50000,
-						panelClass: ['red-snackbar'],
-					});
+				this._snackBar.open(`${error.code.split('/')[1]}`, 'OK', {
+					horizontalPosition: 'center',
+					verticalPosition: 'top',
+					duration: 50000,
+					panelClass: ['red-snackbar'],
+				});
 
-					return error;
-				}),
-			)
-			.subscribe(data => {
-				console.log(data);
-			});
+				return error;
+			},
+		);
 	}
 
 	loginWithLogin() {
-		
+		this.authService.loginWithGoogle();
+	}
+
+	ngOnDestroy() {
+		// Unsubscribe from the Observable when the component is destroyed
+		this.signInSubscription.unsubscribe();
 	}
 }

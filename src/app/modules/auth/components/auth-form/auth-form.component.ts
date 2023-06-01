@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserLogin } from 'src/app/shared/services/user';
+import { UserLogin } from 'src/app/shared/services/auth/user';
 
 @Component({
 	selector: 'app-auth-form',
@@ -27,8 +27,8 @@ export class AuthFormComponent {
 	}
 
 	loginWithGoogle() {
-		this.googleLogin.emit()
-	}	
+		this.googleLogin.emit();
+	}
 
 	@Input() error: string | null;
 

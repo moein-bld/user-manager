@@ -13,7 +13,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav'
 
 const modules = [
 	// @angular/materials
@@ -29,7 +30,8 @@ const modules = [
 	MatSelectModule,
 	MatNativeDateModule,
 	MatDatepickerModule,
-	MatIconModule
+	MatIconModule,
+	MatSidenavModule
 ];
 
 @NgModule({

@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 const Components = [AuthFormComponent];
 
 @NgModule({
-	imports: [CommonModule, SharedModule, FormsModule , ReactiveFormsModule , RouterModule],
+	imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule, RouterModule],
 	declarations: [...Components],
 	exports: [...Components],
 })

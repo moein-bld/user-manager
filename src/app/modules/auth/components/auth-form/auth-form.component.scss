@@ -1,24 +1,22 @@
 .login_card {
-
-    &__title {
+	&__title {
 		font-size: 1.25rem;
 		font-weight: 500;
 		letter-spacing: 0.0125em;
 		line-height: 2rem;
 		margin: 1rem 1rem 2rem;
-    }
+	}
 }
 
 .google_btn {
 	display: flex;
-    align-items: center;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    box-shadow: 0 0 4px rgb(0 0 0 / 30%);
-    padding: 4px 8px;
-    border-radius: 4px;
-
+	align-items: center;
+	border: none;
+	outline: none;
+	background-color: transparent;
+	box-shadow: 0 0 4px rgb(0 0 0 / 30%);
+	padding: 4px 8px;
+	border-radius: 4px;
 
 	img {
 		width: 40px;
