@@ -4,7 +4,7 @@ import { GHeaderComponent } from './g-header/g-header.component';
 import { GSidebarComponent } from './g-sidebar/g-sidebar.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-const Components = [GHeaderComponent , GSidebarComponent];
+const Components = [GHeaderComponent, GSidebarComponent];
 
 @NgModule({
 	imports: [CommonModule, SharedModule],

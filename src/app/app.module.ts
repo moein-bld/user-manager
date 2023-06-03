@@ -7,12 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './modules/auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireModule } from '@angular/fire/compat';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -28,7 +29,8 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 		}),
 		AuthModule,
 		SharedModule,
-		provideFirebaseApp(() => initializeApp(environment.firebase)),
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireAuthModule,
 		provideAuth(() => getAuth()),
 		provideFirestore(() => getFirestore()),
 		provideStorage(() => getStorage()),

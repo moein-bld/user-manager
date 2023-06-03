@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AccessLavelService } from './access-lavel.service';
+import { UsersService } from './users.service';
 
-describe('AccessLavelService', () => {
-	let service: AccessLavelService;
+describe('UsersService', () => {
+	let service: UsersService;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({});
-		service = TestBed.inject(AccessLavelService);
+		service = TestBed.inject(UsersService);
 	});
 
 	it('should be created', () => {

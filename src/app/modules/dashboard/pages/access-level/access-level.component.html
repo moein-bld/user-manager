@@ -1,33 +1,78 @@
 <div class="access-lavel">
-	<div style="width: 80%; margin: auto;">
-		<mat-form-field>
+	<div style="width: 80%; margin: 60px auto">
+		<!-- <mat-form-field>
 			<mat-label>Filter</mat-label>
 			<input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
-		</mat-form-field>
+		</mat-form-field> -->
 
-		<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
-			<!-- Position Column -->
-			<ng-container matColumnDef="position">
-				<th mat-header-cell *matHeaderCellDef>No.</th>
-				<td mat-cell *matCellDef="let element">{{ element.position }}</td>
+		<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+			<ng-container matColumnDef="title">
+				<th mat-header-cell *matHeaderCellDef>Role Title</th>
+				<td mat-cell *matCellDef="let element">{{ element.title }}</td>
 			</ng-container>
 
-			<!-- Name Column -->
-			<ng-container matColumnDef="name">
-				<th mat-header-cell *matHeaderCellDef>Name</th>
-				<td mat-cell *matCellDef="let element">{{ element.name }}</td>
+			<ng-container matColumnDef="isAccessLevels">
+				<th mat-header-cell *matHeaderCellDef>isAccessLevels</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isAccessLevels" [(ngModel)]="element.isAccessLevels"></mat-checkbox>
+				</td>
 			</ng-container>
 
-			<!-- Weight Column -->
-			<ng-container matColumnDef="weight">
-				<th mat-header-cell *matHeaderCellDef>Weight</th>
-				<td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+			<ng-container matColumnDef="isAllSpins">
+				<th mat-header-cell *matHeaderCellDef>isAllSpins</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isAllSpins" [(ngModel)]="element.isAllSpins"></mat-checkbox>
+				</td>
 			</ng-container>
 
-			<!-- Symbol Column -->
-			<ng-container matColumnDef="symbol">
-				<th mat-header-cell *matHeaderCellDef>Symbol</th>
-				<td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
+			<ng-container matColumnDef="isCapture">
+				<th mat-header-cell *matHeaderCellDef>isCapture</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isCapture" [(ngModel)]="element.isCapture"></mat-checkbox>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="isEdit">
+				<th mat-header-cell *matHeaderCellDef>isEdit</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isEdit" [(ngModel)]="element.isEdit"></mat-checkbox>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="isSetting">
+				<th mat-header-cell *matHeaderCellDef>isSetting</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isSetting" [(ngModel)]="element.isSetting"></mat-checkbox>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="isTemplateBuilder">
+				<th mat-header-cell *matHeaderCellDef>isTemplateBuilder</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isTemplateBuilder" [(ngModel)]="element.isTemplateBuilder"></mat-checkbox>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="isTemplateCapture">
+				<th mat-header-cell *matHeaderCellDef>isTemplateCapture</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isTemplateCapture" [(ngModel)]="element.isTemplateCapture"></mat-checkbox>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="isUserModels">
+				<th mat-header-cell *matHeaderCellDef>isUserModels</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isUserModels" [(ngModel)]="element.isUserModels"></mat-checkbox>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="isUsers">
+				<th mat-header-cell *matHeaderCellDef>isUsers</th>
+				<td mat-cell *matCellDef="let element">
+					<mat-checkbox class="example-margin" [checked]="element.isUsers" [(ngModel)]="element.isUsers"></mat-checkbox>
+				</td>
 			</ng-container>
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -35,9 +80,14 @@
 
 			<!-- Row shown when there is no matching data. -->
 			<tr class="mat-row" *matNoDataRow>
-				<td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
+				<td class="mat-cell" colspan="4">No data matching the filter</td>
+				<!--  "{{ input.value }}" -->
 			</tr>
 		</table>
+
+		<div class="mt-4" style="display: flex;justify-content: flex-end;">
+			<button mat-button class="bg-success" (click)="updateRole()">Save Change</button>
+		</div>
 	</div>
 
 	<!-- <app-g-sidebar></app-g-sidebar> -->
