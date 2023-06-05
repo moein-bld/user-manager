@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { GAccessLaval } from 'src/app/shared/services/access-lavel/access-lavel';
 import { AccessLavelService } from 'src/app/shared/services/access-lavel/access-lavel.service';
 
-let ELEMENT_DATA: GAccessLaval[] = [];
+const AccessLavel: GAccessLaval[] = [];
 
 @Component({
 	selector: 'app-access-level',
@@ -14,7 +14,7 @@ let ELEMENT_DATA: GAccessLaval[] = [];
 export class AccessLevelComponent implements OnInit, OnDestroy {
 	private subscription: Subscription = new Subscription();
 	displayedColumns: string[] = ['title', 'isAccessLevels', 'isAllSpins', 'isCapture', 'isEdit', 'isSetting', 'isTemplateBuilder', 'isTemplateCapture', 'isUserModels', 'isUsers'];
-	dataSource = new MatTableDataSource(ELEMENT_DATA);
+	dataSource = new MatTableDataSource(AccessLavel);
 
 	constructor(private database: AccessLavelService) {}
 

@@ -3,26 +3,35 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { GAccessLaval } from 'src/app/shared/services/access-lavel/access-lavel';
 import { AccessLavelService } from 'src/app/shared/services/access-lavel/access-lavel.service';
+import { VerifiedUser } from 'src/app/shared/services/auth/user';
+import { UsersService } from 'src/app/shared/services/users/users.service';
 
-let ELEMENT_DATA: GAccessLaval[] = [];
+const Users: VerifiedUser[] = [];
+const AccessLavel: GAccessLaval[] = [];
+
 @Component({
 	selector: 'app-users',
 	templateUrl: './users.component.html',
 	styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit, OnDestroy {
-	private subscription: Subscription = new Subscription();
-	displayedColumns: string[] = ['title', 'isAccessLevels', 'isAllSpins', 'isCapture', 'isEdit', 'isSetting', 'isTemplateBuilder', 'isTemplateCapture', 'isUserModels', 'isUsers'];
-	dataSource = new MatTableDataSource(ELEMENT_DATA);
+	private subscriptionUser: Subscription = new Subscription();
+	private subscriptionAccess: Subscription = new Subscription();
 
-	constructor(private database: AccessLavelService) {}
+	roles: GAccessLaval[] = [];
+
+	displayedColumns: string[] = ['avatarFullPath', 'displayName', 'email', 'role', 'action'];
+	dataSource = new MatTableDataSource(Users);
+
+	constructor(private gAL: AccessLavelService, private gU: UsersService) {}
 
 	ngOnInit() {
-		this.getAccess();
+		this.getUsers();
+		this.getAccess()
 	}
 
 	ngOnDestroy() {
-		this.subscription.unsubscribe();
+		this.subscriptionUser.unsubscribe();
 	}
 
 	applyFilter(event: Event) {
@@ -30,8 +39,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
-	getAccess() {
-		this.subscription = this.database.getAccessLavel().subscribe(data => {
+	getUsers() {
+		this.subscriptionUser = this.gU.getUsers().subscribe(data => {
 			this.dataSource.data = [];
 			data.forEach(item => {
 				this.dataSource.data.push(item);
@@ -40,10 +49,9 @@ export class UsersComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	updateRole() {
-		this.database
-			.updateUser(this.dataSource.data)
-			.then(() => console.log('Update successful'))
-			.catch(error => console.log('Update failed: ', error));
+	getAccess() {
+		this.subscriptionAccess = this.gAL.getAccessLavel().subscribe(data => {
+			this.roles = data
+		})
 	}
 }
