@@ -15,6 +15,7 @@ export class AccessLevelComponent implements OnInit, OnDestroy {
 	private subscription: Subscription = new Subscription();
 	displayedColumns: string[] = ['title', 'isAccessLevels', 'isAllSpins', 'isCapture', 'isEdit', 'isSetting', 'isTemplateBuilder', 'isTemplateCapture', 'isUserModels', 'isUsers'];
 	dataSource = new MatTableDataSource(AccessLavel);
+	originalData: GAccessLaval[] = [];
 
 	constructor(private database: AccessLavelService) {}
 
@@ -34,17 +35,22 @@ export class AccessLevelComponent implements OnInit, OnDestroy {
 	getAccess() {
 		this.subscription = this.database.getAccessLavel().subscribe(data => {
 			this.dataSource.data = [];
-			data.forEach(item => {
-				this.dataSource.data.push(item);
-			});
+			this.originalData = JSON.parse(JSON.stringify(data));
+			this.dataSource.data = data;
 			this.dataSource._updateChangeSubscription();
 		});
 	}
 
 	updateRole() {
+		if (JSON.stringify(this.dataSource.data) === JSON.stringify(this.originalData)) return
 		this.database
 			.updateUser(this.dataSource.data)
 			.then(() => console.log('Update successful'))
 			.catch(error => console.log('Update failed: ', error));
+	}
+
+	canselChange() {
+		if (JSON.stringify(this.dataSource.data) === JSON.stringify(this.originalData)) return
+		this.dataSource.data = this.originalData
 	}
 }

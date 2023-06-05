@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, catchError, from, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import firebase from '@firebase/app-compat';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UsersService } from '../users/users.service';
+import { VerifiedUser } from './user';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,7 +23,7 @@ export class AuthService {
 			.signInWithPopup(provider)
 			.then((userCredential: any) => {
 				const { displayName, email, phoneNumber, photoURL, uid, metadata } = userCredential.user.multiFactor.user;
-				this.saveUser(displayName, email, phoneNumber, photoURL, uid, metadata);
+				this.saveUser(displayName, email, phoneNumber, photoURL, uid, metadata, true);
 				this.router.navigate(['/dashboard']);
 			})
 			.catch(error => {
@@ -35,7 +36,7 @@ export class AuthService {
 			.createUserWithEmailAndPassword(email, password)
 			.then((userCredential: any) => {
 				const { displayName, email, phoneNumber, photoURL, uid, metadata } = userCredential.user.multiFactor.user;
-				this.saveUser(displayName, email, phoneNumber, photoURL, uid, metadata);
+				this.saveUser(displayName, email, phoneNumber, photoURL, uid, metadata, true);
 				this.router.navigate(['/dashboard']);
 			})
 			.catch(error => {
@@ -57,22 +58,28 @@ export class AuthService {
 	}
 
 	logout() {
-		return this.afAuth.signOut();
+		return this.afAuth.signOut().then(res => {
+			this.router.navigate(['/auth']);
+			this.userService.deleteUserFromLocalStorage();
+		});
 	}
 
-	private saveUser(displayName: string, email: string, phoneNumber: string, photoURL: string, uid: string, metadata: any) {
-		this.userService.saveInLocalStorage({
+	private saveUser(displayName: string, email: string, phoneNumber: string, photoURL: string, uid: string, metadata: any, add?: boolean) {
+		const user: VerifiedUser = {
 			id: uid,
 			ts: metadata.lastLoginAt,
 			accessLevel: 'default',
 			email: email,
 			isTermsAccepted: false,
-			phoneNumber: (phoneNumber === null) ? '' : phoneNumber,
+			phoneNumber: phoneNumber === null ? '' : phoneNumber,
 			signUpTimeStamp: metadata.createdAt,
-			displayName: (displayName === null) ? '' : displayName,
+			displayName: displayName === null ? '' : displayName,
 			isDisabled: false,
-			avatarFullPath: (photoURL === null) ? '' : photoURL,
-		});
+			avatarFullPath: photoURL === null ? '' : photoURL,
+		};
+		this.userService.saveInLocalStorage(user);
+
+		if (add) this.userService.addUser(user);
 	}
 
 	private handelError(error: string) {

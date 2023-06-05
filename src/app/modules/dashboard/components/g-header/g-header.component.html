@@ -1,1 +1,12 @@
-<p>g-header works!</p>
+<mat-toolbar color="primary">
+	<button (click)="menuToggled.emit(true)" mat-icon-button>
+		<mat-icon>menu</mat-icon>
+	</button>
+	<span class="title" routerLink="/">Dashboard</span>
+	<span class="spacer"></span>
+	<mat-icon class="pr-2" *ngIf="avatar === ''; else second">person_pin</mat-icon>
+	<ng-template #second>
+		<img [src]="avatar" alt="avatar" class="image-round" />
+	</ng-template>
+	<span class="welcome-text pr-4"> {{ user }}</span>
+</mat-toolbar>

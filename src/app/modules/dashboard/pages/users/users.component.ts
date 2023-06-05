@@ -27,7 +27,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.getUsers();
-		this.getAccess()
+		this.getAccess();
 	}
 
 	ngOnDestroy() {
@@ -51,7 +51,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
 	getAccess() {
 		this.subscriptionAccess = this.gAL.getAccessLavel().subscribe(data => {
-			this.roles = data
-		})
+			this.roles = data;
+		});
 	}
 }

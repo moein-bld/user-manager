@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GSidebarComponent } from './g-sidebar.component';
+import { MainComponent } from './main.component';
 
-describe('GSidebarComponent', () => {
-	let component: GSidebarComponent;
-	let fixture: ComponentFixture<GSidebarComponent>;
+describe('MainComponent', () => {
+	let component: MainComponent;
+	let fixture: ComponentFixture<MainComponent>;
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
-			declarations: [GSidebarComponent],
+			declarations: [MainComponent],
 		});
-		fixture = TestBed.createComponent(GSidebarComponent);
+		fixture = TestBed.createComponent(MainComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

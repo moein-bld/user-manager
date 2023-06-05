@@ -7,12 +7,18 @@ import { take } from 'rxjs';
 	providedIn: 'root',
 })
 export class UsersService {
-
 	constructor(private db: AngularFireDatabase) {}
 
 	saveInLocalStorage(user: VerifiedUser) {
 		localStorage.setItem('user', JSON.stringify(user));
-		this.addUser(user);
+	}
+
+	deleteUserFromLocalStorage() {
+		localStorage.removeItem('user');
+	}
+
+	getUserFromLocalStorage() {
+		return JSON.parse(localStorage.getItem('user') || '{}');
 	}
 
 	getUsers() {
@@ -24,11 +30,14 @@ export class UsersService {
 	}
 
 	addUser(user: VerifiedUser) {
-		this.getUsers().pipe(take(1)).toPromise().then(users => {
-			const emailSet = new Set(users?.map(u => u.email));
-			if (!emailSet.has(user.email)) return this.db.list('/gUsers').push(user)
-			else return undefined
-		})
+		this.getUsers()
+			.pipe(take(1))
+			.toPromise()
+			.then(users => {
+				const emailSet = new Set(users?.map(u => u.email));
+				if (!emailSet.has(user.email)) return this.db.list('/gUsers').push(user);
+				else return undefined;
+			});
 	}
 
 	updateUser(id: string, user: VerifiedUser) {

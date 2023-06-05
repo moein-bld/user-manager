@@ -16,6 +16,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
 
 const modules = [
 	// @angular/materials
@@ -34,6 +37,9 @@ const modules = [
 	MatIconModule,
 	MatSidenavModule,
 	MatCheckboxModule,
+	MatToolbarModule,
+	MatMenuModule,
+	MatListModule,
 ];
 
 @NgModule({

@@ -1,0 +1,28 @@
+<app-g-header (menuToggled)="toggle()"></app-g-header>
+
+<mat-drawer-container>
+	<mat-drawer #drawer mode="side" [opened]="opened">
+		<mat-list>
+			<mat-list-item routerLink="/dashboard/access-level" routerLinkActive="active">
+				<mat-icon matListItemIcon class="text-black">admin_panel_settings</mat-icon>
+				<div matListItemTitle class="pr-4">Access Lavel</div>
+			</mat-list-item>
+			<mat-list-item routerLink="/dashboard/users" routerLinkActive="active">
+				<mat-icon matListItemIcon class="text-black">groups</mat-icon>
+				<div matListItemTitle>Users</div>
+			</mat-list-item>
+			<mat-list-item>
+				<mat-icon matListItemIcon class="text-black">manage_accounts</mat-icon>
+				<div matListItemTitle>Edit Profile</div>
+			</mat-list-item>
+			<mat-list-item (click)="logout()">
+				<mat-icon matListItemIcon class="text-black">logout</mat-icon>
+				<div matListItemTitle>Logout</div>
+			</mat-list-item>
+		</mat-list>
+	</mat-drawer>
+
+	<div class="sidenav-content">
+		<router-outlet></router-outlet>
+	</div>
+</mat-drawer-container>

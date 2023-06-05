@@ -6,14 +6,13 @@ import { GAccessLaval } from './access-lavel';
 	providedIn: 'root',
 })
 export class AccessLavelService {
-	constructor(private db: AngularFireDatabase) {
-	}
+	constructor(private db: AngularFireDatabase) {}
 
 	getAccessLavel() {
 		return this.db.list<GAccessLaval>('/gAccessLavel').valueChanges();
 	}
 
 	updateUser(user: GAccessLaval[]) {
-		return this.db.object(`/gAccessLavel`).set(user)
+		return this.db.object(`/gAccessLavel`).set(user);
 	}
 }
