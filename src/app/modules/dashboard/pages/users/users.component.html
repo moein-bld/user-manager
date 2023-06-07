@@ -1,15 +1,27 @@
 <div class="access-lavel">
 	<div>
-		<!-- <mat-form-field>
+		<mat-form-field>
+			<mat-label>User Role</mat-label>
+			<input matInput (keyup)="applyFilter($event)" #input />
+		</mat-form-field>
+
+		<mat-form-field class="mx-4">
 			<mat-label>Filter</mat-label>
-			<input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
-		</mat-form-field> -->
+			<input matInput (keyup)="applyFilter($event)" #input />
+		</mat-form-field>
+
+		<div class="">
+			<button mat-button>Manage Users</button>
+		</div>
 
 		<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 			<ng-container matColumnDef="avatarFullPath">
 				<th mat-header-cell *matHeaderCellDef>Avatar</th>
 				<td mat-cell *matCellDef="let element">
-					<img [src]="element.avatarFullPath" alt="avatar" class="image-round" />
+					<img [src]="element.avatarFullPath" alt="avatar" class="image-round" *ngIf="element.avatarFullPath !== ''; else second" />
+					<ng-template #second>
+						<div class="no-avatar">ma</div>
+					</ng-template>
 				</td>
 			</ng-container>
 
@@ -31,7 +43,7 @@
 				<th mat-header-cell *matHeaderCellDef>Role</th>
 				<td mat-cell *matCellDef="let element">
 					<mat-form-field>
-						<mat-label>Favorite food</mat-label>
+						<mat-label>Role</mat-label>
 						<mat-select>
 							<mat-option *ngFor="let role of roles" [value]="role.id">
 								{{ role.title }}
@@ -43,7 +55,9 @@
 
 			<ng-container matColumnDef="action">
 				<th mat-header-cell *matHeaderCellDef>User Activity</th>
-				<td mat-cell *matCellDef="let element"></td>
+				<td mat-cell *matCellDef="let element">
+					<mat-icon >face_unlock</mat-icon>
+				</td>
 			</ng-container>
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
