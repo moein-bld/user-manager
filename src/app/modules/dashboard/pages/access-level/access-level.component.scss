@@ -1,0 +1,11 @@
+::ng-deep .success-snackbar {
+	--mdc-snackbar-container-color: var(--success);
+	--mat-mdc-snack-bar-button-color: var(--white);
+	--mdc-snackbar-supporting-text-color: var(--white);
+	--mat-snack-bar-button-color: var(--white);
+}
+
+.editRow {
+	display: flex;
+	align-items: center;
+}

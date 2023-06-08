@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AccessLevelComponent } from './pages/access-level/access-level.component';
 import { UsersComponent } from './pages/users/users.component';
 import { MainComponent } from './containers/main/main.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 const routes: Routes = [
 	{
@@ -21,6 +22,10 @@ const routes: Routes = [
 			{
 				path: 'users',
 				component: UsersComponent,
+			},
+			{
+				path: 'edit-profile',
+				component: EditProfileComponent,
 			},
 		],
 	},

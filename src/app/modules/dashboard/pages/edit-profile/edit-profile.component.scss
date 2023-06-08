@@ -1,6 +1,6 @@
 .image-round {
 	border-radius: 50%;
-	width: 50px;
+	width: 85px;
 	padding: 8px 0;
 }
 
@@ -15,19 +15,9 @@
 	justify-content: center;
 }
 
-.manage-user {
-	display: flex;
-	justify-content: flex-end;
-}
-
 ::ng-deep .success-snackbar {
 	--mdc-snackbar-container-color: var(--success);
 	--mat-mdc-snack-bar-button-color: var(--white);
 	--mdc-snackbar-supporting-text-color: var(--white);
 	--mat-snack-bar-button-color: var(--white);
-}
-
-::ng-deep .mat-mdc-list-item-unscoped-content {
-	display: flex;
-	align-items: center;
 }

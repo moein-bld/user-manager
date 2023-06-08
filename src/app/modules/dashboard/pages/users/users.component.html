@@ -2,7 +2,11 @@
 	<div>
 		<mat-form-field>
 			<mat-label>User Role</mat-label>
-			<input matInput (keyup)="applyFilter($event)" #input />
+			<mat-select>
+				<mat-option *ngFor="let role of roles" [value]="role.id" (click)="filterWithRole(role.title)">
+					{{ role.title }}
+				</mat-option>
+			</mat-select>
 		</mat-form-field>
 
 		<mat-form-field class="mx-4">
@@ -10,8 +14,8 @@
 			<input matInput (keyup)="applyFilter($event)" #input />
 		</mat-form-field>
 
-		<div class="">
-			<button mat-button>Manage Users</button>
+		<div class="mb-3 manage-user">
+			<button mat-button class="bg-primary text-white" [disabled]="disable" (click)="openDialog()">Manage Users</button>
 		</div>
 
 		<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
@@ -20,7 +24,9 @@
 				<td mat-cell *matCellDef="let element">
 					<img [src]="element.avatarFullPath" alt="avatar" class="image-round" *ngIf="element.avatarFullPath !== ''; else second" />
 					<ng-template #second>
-						<div class="no-avatar">ma</div>
+						<div class="no-avatar">
+							{{ truncateString(element.displayName, element.email) }}
+						</div>
 					</ng-template>
 				</td>
 			</ng-container>
@@ -44,7 +50,7 @@
 				<td mat-cell *matCellDef="let element">
 					<mat-form-field>
 						<mat-label>Role</mat-label>
-						<mat-select>
+						<mat-select [(value)]="element.accessLevel">
 							<mat-option *ngFor="let role of roles" [value]="role.id">
 								{{ role.title }}
 							</mat-option>
@@ -56,7 +62,7 @@
 			<ng-container matColumnDef="action">
 				<th mat-header-cell *matHeaderCellDef>User Activity</th>
 				<td mat-cell *matCellDef="let element">
-					<mat-icon >face_unlock</mat-icon>
+					<mat-icon [ngClass]="{ 'text-primary': !element.isDisabled }">face_unlock</mat-icon>
 				</td>
 			</ng-container>
 
@@ -75,6 +81,6 @@
 </div>
 
 <app-action-bar>
-	<button mat-button class="bg-success mr-3" >Save Change</button>
-	<button mat-button class="bg-error" >Cansel</button>
+	<button mat-button class="bg-success mr-3" (click)="updateRole()">Save Change</button>
+	<button mat-button class="bg-error" (click)="canselChange()">Cansel</button>
 </app-action-bar>

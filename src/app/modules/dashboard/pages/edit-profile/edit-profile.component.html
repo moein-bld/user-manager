@@ -1,0 +1,38 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-title> General Setting </mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content class="mt-4">
+		<div>
+			<img [src]="avatar" alt="avatar" class="image-round">
+		</div>
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+			<mat-form-field class="w-full">
+				<mat-label>Email</mat-label>
+				<input type="text" matInput formControlName="email" name="email" />
+				<mat-error *ngIf="form.get('email')?.hasError('required')"> email is required </mat-error>
+				<mat-error *ngIf="form.get('email')?.hasError('email')"> email is invalid </mat-error>
+			</mat-form-field>
+
+			<mat-form-field class="w-full">
+				<mat-label>Display Name</mat-label>
+				<input type="text" matInput formControlName="displayName" name="displayName" />
+				<mat-error *ngIf="form.get('displayName')?.hasError('required')"> Display Name is required </mat-error>
+			</mat-form-field>
+
+			<mat-form-field class="w-full">
+				<mat-label>Phone Number</mat-label>
+				<input type="text" matInput formControlName="phoneNumber" name="phoneNumber" />
+				<mat-error *ngIf="form.get('phoneNumber')?.hasError('required')"> Phone Number is required </mat-error>
+			</mat-form-field>
+
+		</form>
+	</mat-card-content>
+</mat-card>
+
+<app-action-bar>
+	<button mat-button class="bg-success mr-3" (click)="onSubmit()">Save Change</button>
+	<button mat-button class="bg-error">Cansel</button>
+</app-action-bar>

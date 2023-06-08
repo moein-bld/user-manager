@@ -40,8 +40,12 @@ export class UsersService {
 			});
 	}
 
-	updateUser(id: string, user: VerifiedUser) {
-		return this.db.object(`/gUsers/${id}`).update(user);
+	updateUser(user: VerifiedUser, id: string) {
+		this.db.object(`/gUsers/${id}`).update(user);
+	}
+
+	updateUsers(users: VerifiedUser[]) {
+		return this.db.object(`/gUsers`).set(users);
 	}
 
 	deleteUser(id: string) {

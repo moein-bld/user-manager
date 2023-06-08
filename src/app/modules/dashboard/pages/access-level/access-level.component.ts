@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { GAccessLaval } from 'src/app/shared/services/access-lavel/access-lavel';
@@ -16,8 +17,9 @@ export class AccessLevelComponent implements OnInit, OnDestroy {
 	displayedColumns: string[] = ['title', 'isAccessLevels', 'isAllSpins', 'isCapture', 'isEdit', 'isSetting', 'isTemplateBuilder', 'isTemplateCapture', 'isUserModels', 'isUsers'];
 	dataSource = new MatTableDataSource(AccessLavel);
 	originalData: GAccessLaval[] = [];
+	editedRowIndex: number = -1;
 
-	constructor(private database: AccessLavelService) {}
+	constructor(private database: AccessLavelService, private _snackBar: MatSnackBar) {}
 
 	ngOnInit() {
 		this.getAccess();
@@ -34,7 +36,6 @@ export class AccessLevelComponent implements OnInit, OnDestroy {
 
 	getAccess() {
 		this.subscription = this.database.getAccessLavel().subscribe(data => {
-			this.dataSource.data = [];
 			this.originalData = JSON.parse(JSON.stringify(data));
 			this.dataSource.data = data;
 			this.dataSource._updateChangeSubscription();
@@ -42,15 +43,34 @@ export class AccessLevelComponent implements OnInit, OnDestroy {
 	}
 
 	updateRole() {
-		if (JSON.stringify(this.dataSource.data) === JSON.stringify(this.originalData)) return
+		if (JSON.stringify(this.dataSource.data) === JSON.stringify(this.originalData)) return;
 		this.database
 			.updateUser(this.dataSource.data)
-			.then(() => console.log('Update successful'))
+			.then(() => {
+				this._snackBar.open('Update successful', 'OK', {
+					horizontalPosition: 'center',
+					verticalPosition: 'top',
+					duration: 50000,
+					panelClass: ['success-snackbar'],
+				});
+			})
 			.catch(error => console.log('Update failed: ', error));
 	}
 
 	canselChange() {
-		if (JSON.stringify(this.dataSource.data) === JSON.stringify(this.originalData)) return
-		this.dataSource.data = this.originalData
+		if (JSON.stringify(this.dataSource.data) === JSON.stringify(this.originalData)) return;
+		this.dataSource.data = JSON.parse(JSON.stringify(this.originalData));
+	}
+
+	startEdit(row: GAccessLaval) {
+		this.editedRowIndex = this.dataSource.data.indexOf(row);
+	}
+
+	cancelEdit() {
+		this.editedRowIndex = -1;
+	}
+
+	saveEdit(row: GAccessLaval) {
+		this.editedRowIndex = -1;
 	}
 }

@@ -64,6 +64,30 @@ export class AuthService {
 		});
 	}
 
+	getCurrentUser() {
+		return this.afAuth.authState;
+	}
+
+	updateDisplayName(displayName: string) {
+		return this.afAuth.currentUser.then(user => {
+			if (user) {
+				this.userService.getUsers().subscribe(data => {
+					data.forEach(item => {
+						if (item.email === user?.email) {
+							item.displayName = displayName
+							console.log(item);
+						}
+					})
+				})
+				return user.updateProfile({
+					displayName: displayName,
+				});
+			} else {
+				throw new Error('User not authenticated');
+			}
+		});
+	}
+
 	private saveUser(displayName: string, email: string, phoneNumber: string, photoURL: string, uid: string, metadata: any, add?: boolean) {
 		const user: VerifiedUser = {
 			id: uid,

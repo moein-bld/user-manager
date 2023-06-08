@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>Users</h2>
+<mat-dialog-content class="mat-typography my-4">
+	<mat-tab-group (selectedIndexChange)="onTabChange($event)">
+		<mat-tab label="Delete Users">
+			<mat-selection-list #user>
+				<mat-list-option *ngFor="let user of deleteUsers">
+					<img [src]="user.avatarFullPath" alt="avatar" class="image-round" *ngIf="user.avatarFullPath !== ''" />
+					{{user.email}}
+				</mat-list-option>
+			</mat-selection-list>
+
+			<p *ngIf="deleteUsers.length == 0">users not found</p>
+			<!-- <p>Options selected: {{user.selectedOptions.selected.length}}</p> -->
+		</mat-tab>
+
+		<mat-tab label="Enable Users">
+			<mat-selection-list #EnableUser (selectionChange)="onSelectionChangeUser($event)">
+				<mat-list-option *ngFor="let user of disableUsers" style="padding: 32px 0" [value]="user">
+					<img [src]="user.avatarFullPath" alt="avatar" class="image-round ml-1" *ngIf="user.avatarFullPath !== ''; else second" />
+					<ng-template #second>
+						<div class="no-avatar ml-1">{{ truncateString(user.displayName , user.email) }}</div>
+					</ng-template>
+					<div class="ml-2">{{user.email}}</div>
+				</mat-list-option>
+			</mat-selection-list>
+
+			<p *ngIf="disableUsers.length == 0">users not found</p>
+		</mat-tab>
+
+		<mat-tab label="Disable Users">
+			<mat-selection-list #DisableUser (selectionChange)="onSelectionChangeUser($event)">
+				<mat-list-option *ngFor="let user of enableUsers" style="padding: 32px 0" [value]="user">
+					<img [src]="user.avatarFullPath" alt="avatar" class="image-round ml-1" *ngIf="user.avatarFullPath !== ''; else second" />
+					<ng-template #second>
+						<div class="no-avatar ml-1">{{ truncateString(user.displayName , user.email) }}</div>
+					</ng-template>
+					<div class="ml-2">{{user.email}}</div>
+				</mat-list-option>
+			</mat-selection-list>
+
+			<p *ngIf="enableUsers.length == 0">users not found</p>
+		</mat-tab>
+	</mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close class="bg-error text-white">Cancel</button>
+	<button mat-button cdkFocusInitial class="bg-success text-white" (click)="changeStatus()">{{ btnText }} User</button>
+</mat-dialog-actions>

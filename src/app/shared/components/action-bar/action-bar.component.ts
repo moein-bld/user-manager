@@ -5,6 +5,4 @@ import { Component, Input } from '@angular/core';
 	templateUrl: './action-bar.component.html',
 	styleUrls: ['./action-bar.component.scss'],
 })
-export class ActionBarComponent {
-	
-}
+export class ActionBarComponent {}
