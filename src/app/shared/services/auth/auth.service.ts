@@ -71,14 +71,6 @@ export class AuthService {
 	updateDisplayName(displayName: string) {
 		return this.afAuth.currentUser.then(user => {
 			if (user) {
-				this.userService.getUsers().subscribe(data => {
-					data.forEach(item => {
-						if (item.email === user?.email) {
-							item.displayName = displayName
-							console.log(item);
-						}
-					})
-				})
 				return user.updateProfile({
 					displayName: displayName,
 				});
